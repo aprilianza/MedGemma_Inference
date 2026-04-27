@@ -1,0 +1,45 @@
+# Virtual Environments
+venv/
+env/
+.env
+
+# Python Caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Mac OS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Project Specific (Testing Data & Scripts)
+sample_usg.png
+test_xray.jpg
+a.png
+test_*.py
+
+# Llama.cpp / GGUF Models (In case user downloads them manually)
+*.gguf
+*.bin
+models/
+
+arsitektur_dan_integrasi.md
