@@ -1,0 +1,25 @@
+services:
+  medgemma-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: medgemma-api
+    restart: unless-stopped
+    ports:
+      - '8000:8000'
+    environment:
+      # Isi di VPS: export HF_TOKEN=hf_xxx atau simpan di file .env
+      HF_TOKEN: ${HF_TOKEN:-}
+      HUGGING_FACE_HUB_TOKEN: ${HF_TOKEN:-}
+    volumes:
+      # Cache model agar tidak download ulang setiap restart/deploy
+      - hf_cache:/root/.cache/huggingface
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8000/health']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s
+
+volumes:
+  hf_cache:

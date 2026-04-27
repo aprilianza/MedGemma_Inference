@@ -74,7 +74,7 @@ class ConsultationResponse(BaseModel):
 
 
 # ── Endpoints ──
-@app.post("/api/v2/consultation", response_model=ConsultationResponse)
+@app.post("/consultations", response_model=ConsultationResponse)
 async def consultation(req: ConsultationRequest):
     """
     Endpoint utama untuk konsultasi medis multimodal.

@@ -89,7 +89,7 @@ class MedGemmaInference:
         """Menyusun format chat untuk llama.cpp dengan penyesuaian Role (Pasien/Dokter)."""
         
         # 1. Tentukan gaya bahasa (System Prompt) berdasarkan Role dengan paksaan Bahasa Indonesia
-        if user_role.lower() == "pasien":
+        if user_role.lower() == "patient":
             system_prompt = (
                 "Anda adalah MedGemma, asisten medis AI yang penuh empati untuk platform Lumira AI Enhanced. "
                 "Anda sedang berbicara langsung dengan PASIEN. Gunakan Bahasa Indonesia yang jelas, sopan, ramah, "
