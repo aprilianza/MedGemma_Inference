@@ -169,15 +169,19 @@ class MedGemmaInference:
                 temperature=0.3, # Dinaikkan sedikit agar tidak kaku
                 repeat_penalty=1.15, # MENCEGAH MODEL MENGULANG-ULANG KALIMAT
                 # Menambahkan ASSISTANT: dan <end_of_turn> agar LLM berhenti bicara setelah paragraf pertama selesai
-                stop=["User:", "Doctor:", "Patient:", "\n\n\n", "ASSISTANT:", "USER:", "<end_of_turn>"], 
+                stop=["User:", "Doctor:", "Patient:", "\n\n\n", "ASSISTANT:", "USER:", "SYSTEM:", "<end_of_turn>"], 
                 stream=False
             )
 
             response_text = output["choices"][0]["message"]["content"].strip()
             
-            # Post-processing manual: Potong output jika masih membocorkan kata ASSISTANT:
-            if "ASSISTANT:" in response_text:
-                response_text = response_text.split("ASSISTANT:")[0].strip()
+            # Post-processing manual: buang kebocoran role/system prompt bila masih muncul
+            for marker in ("ASSISTANT:", "SYSTEM:"):
+                if marker in response_text:
+                    response_text = response_text.split(marker)[0].strip()
+
+            if "Anda adalah MedGemma" in response_text:
+                response_text = response_text.split("Anda adalah MedGemma")[0].strip()
             
             # Hitung metrics
             latency = time.time() - start_time
